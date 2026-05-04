@@ -1,0 +1,21 @@
+{
+  "name": "http-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.15.3",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "node": "^24.15.0",
+    "types@express": "link:/types@express"
+  }
+}
