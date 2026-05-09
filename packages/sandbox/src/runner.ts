@@ -1,7 +1,6 @@
 //runStep = take cmd, image, tmpDir, limits and some other imp ones 
 
 
-
 import { spawn } from "node:child_process";
 import { mkdtemp, writeFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -64,7 +63,6 @@ async function runStep(
       }
     }
   });
-
   child.stderr.on("data", (chunk: Buffer) => {
     if (stderr.length < MAX_OUTPUT_BYTES) {
       stderr += chunk.toString();
@@ -73,6 +71,7 @@ async function runStep(
 
   child.stdin.write(stdin);
   child.stdin.end();
+
   // timeout logic 
   //if the limits passes without the container getting killed kill the process immed
   let timedOut = false;

@@ -5,13 +5,11 @@ async function run(name: string, language: any, code: string, slug: string) {
   const result = await processSubmission(language, code, slug);
   console.log(`Verdict: ${result.verdict} (${result.totalDurationMs}ms)`);
   result.testResults.forEach((t) => {
-    const icon = t.passed ? "✅" : "❌";
+    const icon = t.passed ? "Yes" : "No";
     console.log(`  ${icon} test ${t.testCase} — got: ${t.stdout} expected: ${t.expected} (${t.durationMs}ms)`);
     if (t.stderr) console.log(`     stderr: ${t.stderr.slice(0, 100)}`);
   });
 }
-
-// ── Python ────────────────────────────────────────────────────────────────────
 
 await run(
   "Python correct",

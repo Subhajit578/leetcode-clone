@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "problems",
+			"path": "../../../Downloads/problems"
+		},
+		{
+			"name": "leetcode-clone",
+			"path": "../.."
+		}
+	],
+	"settings": {}
+}
