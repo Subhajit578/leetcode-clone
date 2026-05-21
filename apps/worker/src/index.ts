@@ -99,19 +99,16 @@ export async function processSubmission(
     //@ts-ignore
     const { input, expected } = testCases[i];
     const result = await runInSandbox(language, code, input + "\n", limits);
-
     const passed =
       result.exitCode === 0 &&
       !result.timedOut &&
       outputMatches(result.stdout, expected);
-
     const verdict = toVerdict(
       result.exitCode,
       result.timedOut,
       result.phase,
       passed
     );
-
     testResults.push({
       testCase: i + 1,
       passed,
@@ -128,7 +125,6 @@ export async function processSubmission(
       };
     }
   }
-
   return {
     verdict: "ACCEPTED",
     testResults,

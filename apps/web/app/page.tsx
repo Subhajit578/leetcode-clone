@@ -4,8 +4,6 @@ import { useState, useEffect } from "react";
 
 const API = "http://localhost:3001";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
 type TestResult = {
   testCase: number;
   passed: boolean;
@@ -20,13 +18,11 @@ type SubmissionResult = {
   testResults: TestResult[];
   totalDurationMs: number;
 };
-
 type ProblemData = {
   slug: string;
   description: string;
   starters: Record<string, string>;
 };
-
 const VERDICT_COLOR: Record<string, string> = {
   ACCEPTED:              "green",
   WRONG_ANSWER:          "red",
@@ -35,8 +31,6 @@ const VERDICT_COLOR: Record<string, string> = {
   RUNTIME_ERROR:         "red",
   COMPILE_ERROR:         "purple",
 };
-
-// ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function Page() {
   const [problems,        setProblems]        = useState<string[]>([]);
@@ -53,7 +47,6 @@ export default function Page() {
       .then(r => r.json())
       .then(setProblems);
   }, []);
-
   // Fetch problem details when problem changes
   useEffect(() => {
     if (!selectedProblem) return;
@@ -65,7 +58,6 @@ export default function Page() {
         setResult(null);
       });
   }, [selectedProblem]);
-
   // Swap starter code when language changes
   useEffect(() => {
     if (!problemData) return;
@@ -83,27 +75,21 @@ export default function Page() {
       headers: { "Content-Type": "application/json" },
       body:    JSON.stringify({ language, code, problemSlug: selectedProblem }),
     }).then(r => r.json());
-
     // Poll every second until done
     let attempts = 0;
-
     const poll = setInterval(async () => {
       attempts++;
-
       // Give up after 60 seconds
       if (attempts > 60) {
         clearInterval(poll);
         setStatus("Timed out — server took too long");
         return;
       }
-
       // Handle network errors silently — just try again next tick
       const sub = await fetch(`${API}/submissions/${id}`)
         .then(r => r.json())
         .catch(() => null);
-
       if (!sub) return;
-
       if (sub.status === "DONE") {
         clearInterval(poll);
         setStatus("");
@@ -111,11 +97,8 @@ export default function Page() {
       }
     }, 1000);
   }
-
   return (
     <div style={styles.page}>
-
-      {/* ── Left: problem ── */}
       <div style={styles.left}>
         <select
           value={selectedProblem}
@@ -147,14 +130,11 @@ export default function Page() {
             <option value="javascript">JavaScript</option>
             <option value="java">Java</option>
           </select>
-
           <button onClick={submitCode} style={styles.button}>
             Submit
           </button>
-
           <span style={{ color: "#666" }}>{status}</span>
         </div>
-
         {/* Code editor */}
         <textarea
           value={code}
@@ -191,9 +171,6 @@ export default function Page() {
     </div>
   );
 }
-
-// ─── Styles ───────────────────────────────────────────────────────────────────
-
 const styles: Record<string, React.CSSProperties> = {
   page: {
     display:    "flex",

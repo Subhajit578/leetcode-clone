@@ -32,9 +32,7 @@ app.get("/problems/:slug", async (req, res) => {
     // get specific problem details 
     const { slug } = req.params;
     const problemDir = join(PROBLEMS_DIR, slug);
-  
     const description = await readFile(join(problemDir, "Problem.md"), "utf-8");
-
     const starters: Record<string, string> = {};
     for (const [lang, file] of [["python", "solution.py"], ["javascript", "solution.js"], ["java", "Solution.java"]]) {
       try {
@@ -43,7 +41,6 @@ app.get("/problems/:slug", async (req, res) => {
         starters[lang] = "";
       }
     }
-  
     res.json({ slug, description, starters });
   });
 app.post("/submissions" , (req, res) => {
@@ -93,7 +90,6 @@ app.get("/submissions/:id", (req,res)=> {
       res.status(404).json({ error: "Submission not found" });
       return;
     }
-  
     res.json(submission);
 })
 

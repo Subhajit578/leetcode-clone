@@ -7,9 +7,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import type { SandboxLimits, SandboxResult, Language } from "./types.js";
 import { LANGUAGES } from "./language.js";
-
 const MAX_OUTPUT_BYTES = 1024 * 1024;
-
 type StepResult = {
   stdout: string;
   stderr: string;
@@ -44,10 +42,8 @@ async function runStep(
     ...cmd,
   ];
 // start process
-
   const start = Date.now();
   const child = spawn("docker", args);
-
   let stdout = "";
   let stderr = "";
   let truncated = false;
